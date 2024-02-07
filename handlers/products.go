@@ -16,15 +16,15 @@ func NewProducts(l *log.Logger) *Products {
 
 func (p *Products) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
-		p.getProducts(rw, r)
+		p.GetProducts(rw, r)
 		return
 	} else if r.Method == http.MethodPost {
-		p.addProducts(rw, r)
+		p.AddProduct(rw, r)
 	}
 	rw.WriteHeader(http.StatusMethodNotAllowed)
 }
 
-func (p *Products) getProducts(rw http.ResponseWriter, r *http.Request) {
+func (p *Products) GetProducts(rw http.ResponseWriter, r *http.Request) {
 	products := data.GetProducts()
 	err := products.ToJson(rw)
 	if err != nil {
@@ -32,7 +32,7 @@ func (p *Products) getProducts(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (p *Products) addProducts(rw http.ResponseWriter, r *http.Request) {
+func (p *Products) AddProduct(rw http.ResponseWriter, r *http.Request) {
 	prod := &data.Product{}
 
 	err := prod.FromJson(r.Body)
@@ -41,4 +41,26 @@ func (p *Products) addProducts(rw http.ResponseWriter, r *http.Request) {
 	}
 
 	data.AddProduct(prod)
+}
+
+func (p *Products) PutProduct(writer http.ResponseWriter, request *http.Request) {
+	// Todo: Add function here.
+}
+
+type KeyProduct struct{}
+
+func (p *Products) MiddlewareProductValidation(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+		//prod := data.Product{}
+		//err := prod.FromJson(r.Body)
+		//if err != nil {
+		//	p.l.Println("[ERROR] deserializing product", err)
+		//	http.Error(rw, "error reading product", http.StatusBadRequest)
+		//}
+		//ctx := context.WithValue(r.Context(), KeyProduct{}, prod)
+		//r = r.WithContext(ctx)
+		//next.ServeHTTP(rw, r)
+
+		// Todo: Write function for this
+	})
 }

@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"context"
+	"fmt"
 	"log"
 	"microservices-in-go/data"
 	"net/http"
@@ -51,16 +53,21 @@ type KeyProduct struct{}
 
 func (p *Products) MiddlewareProductValidation(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
-		//prod := data.Product{}
-		//err := prod.FromJson(r.Body)
-		//if err != nil {
-		//	p.l.Println("[ERROR] deserializing product", err)
-		//	http.Error(rw, "error reading product", http.StatusBadRequest)
-		//}
-		//ctx := context.WithValue(r.Context(), KeyProduct{}, prod)
-		//r = r.WithContext(ctx)
-		//next.ServeHTTP(rw, r)
-
-		// Todo: Write function for this
+		prod := data.Product{}
+		err := prod.FromJson(r.Body)
+		if err != nil {
+			p.l.Println("[ERROR]", err)
+			http.Error(rw, "error reading json", http.StatusBadRequest)
+			return
+		}
+		err = prod.Validate()
+		if err != nil {
+			p.l.Println("[ERROR]", err)
+			http.Error(rw, fmt.Sprintf("error validating json %s", err), http.StatusBadRequest)
+			return
+		}
+		ctx := context.WithValue(r.Context(), KeyProduct{}, prod)
+		r = r.WithContext(ctx)
+		next.ServeHTTP(rw, r)
 	})
 }

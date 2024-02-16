@@ -1,4 +1,4 @@
-// Package classification of Product API
+// Package handlers classification of Product API
 //
 // # Documentation for Product API
 //
@@ -21,6 +21,13 @@ import (
 	"microservices-in-go/data"
 	"net/http"
 )
+
+// A list of products returns in the response.
+type productsResponse struct {
+	// All products
+	// in: body
+	Body []data.Product
+}
 
 type Products struct {
 	l *log.Logger

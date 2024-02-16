@@ -3,9 +3,21 @@ consumes:
     - application/json
 info:
     description: '# Documentation for Product API'
-    title: of Product API
+    title: classification of Product API
     version: 1.0.0
-paths: {}
+paths:
+    /products:
+        get:
+            description: |-
+                []
+
+                GetProducts returns the products from the data store.
+            operationId: listProducts
+            summary: |-
+                Returns a list of products
+                response:
+            tags:
+                - products
 produces:
     - application/json
 schemes:

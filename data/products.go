@@ -46,6 +46,13 @@ func (p *Product) Validate() error {
 	return validate.Struct(p)
 }
 
+// swagger:route GET /products products listProducts
+// Returns a list of products
+// response:
+//
+//	[]
+//
+// GetProducts returns the products from the data store.
 func GetProducts() Products {
 	return productList
 }

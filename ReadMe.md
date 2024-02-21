@@ -1,1 +1,1 @@
-I created repository to experiment and try out code with go and learn how to build microservices in it.
+I created this repository to experiment and try out code with go. My main focus here is to build microservices. Although the code won't make much sense, if you have randomly stumbled upon the repo you can create an issue and I'll try my best to answer your queries.
